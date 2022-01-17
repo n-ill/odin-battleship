@@ -2,7 +2,7 @@ const Ship = (size) => {
   let shipArr = [];
 
   for (let i = 0; i < size; i++) {
-    shipArr.push("");
+    shipArr.push("S");
   }
 
   const shipStatus = () => {
@@ -26,7 +26,7 @@ const Ship = (size) => {
     return sunk;
   };
 
-  return { shipStatus, hit, isSunk };
+  return { size, shipStatus, hit, isSunk };
 };
 
 export { Ship };
