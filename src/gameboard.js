@@ -28,12 +28,7 @@ const Gameboard = () => {
       return "out of bounds vertically";
     }
 
-    // // check orientation
-    // if (orientation !== "H" || orientation !== "V") {
-    //   return "invalid orientation";
-    // }
-
-    // check if ship intersects
+    // check if ship intersects another ship
     if (orientation === "H") {
       for (let i = 0; i < aShip.size; i++) {
         if (board[y][x + i] !== "") {
@@ -48,20 +43,28 @@ const Gameboard = () => {
       }
     }
 
-    // check if ship touches another ship
+    // check if ship directly next to another ship
 
     if (orientation === "H") {
       for (let i = 0; i < aShip.size; i++) {
-        board[y][x + i] = aShip;
+        board[y][x + i] = [aShip, i];
       }
     } else if (orientation === "V") {
       for (let i = 0; i < aShip.size; i++) {
-        board[y + i][x] = aShip;
+        board[y + i][x] = [aShip, i];
       }
     }
   };
 
-  const receiveAttack = (x, y) => {};
+  const receiveAttack = (x, y) => {
+    if (board[y][x] !== "" && board[y][x] !== "X" && board[y][x] !== "M") {
+      board[y][x][0].hit(board[y][x][1]);
+      board[y][x] = "X";
+    }
+    if (board[y][x] === "") {
+      board[y][x] = "M";
+    }
+  };
 
   return { boardStatus, placeShip, receiveAttack };
 };
