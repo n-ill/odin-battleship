@@ -146,3 +146,28 @@ test("missing a ship on the board", () => {
     ["", "", "", "", "", "", "", "", "", ""],
   ]);
 });
+
+test("game over; all ships sunk", () => {
+  const testGameboard = Gameboard();
+  let ships = [];
+  const testShip = Ship(3);
+  ships.push(testShip);
+  testGameboard.placeShip(testShip, 1, 1);
+  testGameboard.receiveAttack(1, 1);
+  testGameboard.receiveAttack(2, 1);
+  testGameboard.receiveAttack(3, 1);
+
+  expect(testGameboard.isGameOver(ships)).toBeTruthy();
+});
+
+test("game NOT over; all ships NOT sunk", () => {
+  const testGameboard = Gameboard();
+  let ships = [];
+  const testShip = Ship(3);
+  ships.push(testShip);
+  testGameboard.placeShip(testShip, 1, 1);
+  testGameboard.receiveAttack(1, 1);
+  testGameboard.receiveAttack(2, 1);
+
+  expect(testGameboard.isGameOver(ships)).toBeFalsy();
+});

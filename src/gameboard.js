@@ -66,7 +66,20 @@ const Gameboard = () => {
     }
   };
 
-  return { boardStatus, placeShip, receiveAttack };
+  const isGameOver = (ships) => {
+    let gameOver = true;
+
+    for (let aShip of ships) {
+      if (!aShip.isSunk()) {
+        gameOver = false;
+        return gameOver;
+      }
+    }
+
+    return gameOver;
+  };
+
+  return { boardStatus, placeShip, receiveAttack, isGameOver };
 };
 
 export { Gameboard };
